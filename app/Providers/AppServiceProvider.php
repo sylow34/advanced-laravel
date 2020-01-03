@@ -6,6 +6,7 @@ use App\Billing\BankPaymentGateway;
 use App\Billing\CreditPaymentGateway;
 use App\Billing\PaymentGatewayContract;
 use App\Http\View\Composers\ChannelsComposer;
+use App\Mixins\StrMixins;
 use App\Models\Channel;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Response;
@@ -51,9 +52,11 @@ class AppServiceProvider extends ServiceProvider
         //  View::composer(['post.*','channel.index'],ChannelsComposer::class);
         View::composer('partials.channels.*', ChannelsComposer::class);
 
-        Str::macro('refNumber', function ($ref) {
-            return 'Ref-' . substr($ref, 0, 3) . '-' . substr($ref, 3);
-        });
+        /*        Str::macro('refNumber', function ($ref) {
+                    return 'Ref-' . substr($ref, 0, 3) . '-' . substr($ref, 3);
+                });*/
+
+      //  Str::mixin(new StrMixins());
 
         ResponseFactory::macro('errorJson', function ($message = 'default error message') {
             return [

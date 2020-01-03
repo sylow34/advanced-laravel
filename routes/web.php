@@ -20,5 +20,7 @@ Route::get('channel', 'ChannelController@index');
 Route::get('posts/create', 'PostController@create');
 Route::get('refNumber',function (){
     //dd(\Illuminate\Support\Str::refNumber('7664w202885261bb'));
+    dd(\Illuminate\Support\Str::refNumber('7664w202885261bb'));
+
     return \Illuminate\Support\Facades\Response::errorJson();
 });
