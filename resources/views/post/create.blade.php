@@ -10,7 +10,6 @@
 <body>
 <form action="/posts/create">
     @include('partials.channels.dropdown',['field'=>'my_channels'])
-
 </form>
 </body>
 </html>
