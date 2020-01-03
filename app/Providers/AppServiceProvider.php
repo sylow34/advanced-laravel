@@ -35,7 +35,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        View::share('channels', Channel::orderBy('name')->get());
+        // 1- all
+       // View::share('channels', Channel::orderBy('name')->get());
+
+        // 2- only specific blade template
+        View::composer(['post.*','channel.index'],function ($view){
+            $view->with('channels', Channel::orderBy('name')->get());
+        });
 
     }
 }
