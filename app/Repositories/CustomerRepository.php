@@ -5,6 +5,10 @@ namespace App\Repositories;
 
 
 use App\Models\Customer;
+use App\QueryFilters\Active;
+use App\QueryFilters\MaxCount;
+use App\QueryFilters\Sort;
+use Illuminate\Pipeline\Pipeline;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {
@@ -25,6 +29,16 @@ class CustomerRepository implements CustomerRepositoryInterface
                     ->map(function ($customer) {
                         return $customer->format($customer);
                     });*/
+    }
+
+    public function allCustomers()
+    {
+        return app(Pipeline::class)
+            ->send(Customer::query())
+            ->through([Active::class, Sort::class, MaxCount::class])
+            ->thenReturn()
+            ->paginate(5);
+        // ->get();
     }
 
     public function findById($customerId)

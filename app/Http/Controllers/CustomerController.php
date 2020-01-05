@@ -47,7 +47,7 @@ class CustomerController extends Controller
     {
         // $customers = Customer::query();
 
-        $customers = Customer::allCustomers();
+        $customers = $this->customerRepository->allCustomers();
 
         /*        if (request()->has('active')) {
                     $customers->where('active', request('active'));

@@ -13,16 +13,6 @@ class Customer extends Model
 
     protected $guarded = [];
 
-    public static function allCustomers()
-    {
-        return app(Pipeline::class)
-            ->send(Customer::query())
-            ->through([Active::class, Sort::class, MaxCount::class])
-            ->thenReturn()
-            ->paginate(5);
-        // ->get();
-    }
-
     public function format()
     {
         return [
