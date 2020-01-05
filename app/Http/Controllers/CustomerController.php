@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\QueryFilters\Active;
+use App\QueryFilters\Sort;
 use App\Repositories\CustomerRepositoryInterface;
+use Cassandra\Custom;
+use Illuminate\Pipeline\Pipeline;
 
 class CustomerController extends Controller
 {
@@ -36,5 +41,22 @@ class CustomerController extends Controller
     {
         $this->customerRepository->delete($customerId);
         return redirect('/customers/');
+    }
+
+    public function pipeline()
+    {
+        // $customers = Customer::query();
+
+        $customers = Customer::allCustomers();
+
+        /*        if (request()->has('active')) {
+                    $customers->where('active', request('active'));
+                }
+                if (request()->has('sort')) {
+                    $customers->orderBy('name', request('sort'));
+                }
+           $customers = $customers->get();
+        */
+        return view('customers.index', compact('customers'));
     }
 }
